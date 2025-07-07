@@ -7,7 +7,7 @@ const TaskForm = ({ onTaskCreated }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/tasks', { title, description })
+    axios.post('http://localhost:3001/tasks', { title, description })
       .then(response => {
         onTaskCreated(response.data);
         setTitle('');

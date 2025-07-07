@@ -5,13 +5,13 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/tasks')
+    axios.get('http://localhost:3001/tasks')
       .then(response => setTasks(response.data))
       .catch(error => console.error('Error fetching tasks:', error));
   }, []);
 
   const deleteTask = (id) => {
-    axios.delete(`http://localhost:3000/tasks/${id}`)
+    axios.delete(`http://localhost:3001/tasks/${id}`)
       .then(() => setTasks(tasks.filter(task => task.id !== id)))
       .catch(error => console.error('Error deleting task:', error));
   };
