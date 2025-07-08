@@ -44,7 +44,8 @@ const Portfolio = () => {
       image: 'https://via.placeholder.com/300x200/667eea/ffffff?text=Weather+App',
       github: '#',
       live: '#'
-    }
+    },
+    
   ];
 
   const experience = [
