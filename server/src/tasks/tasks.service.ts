@@ -7,8 +7,9 @@ import { Task } from "./task.entity"
 export class TasksService {
 	private tasks: Task[] = []
 
-	getAllTasks(): Task[] {
-		return this.tasks
+	getAllTasks(): { tasks: Task[]; total: number } {
+		const tasks = this.tasks
+		return { tasks, total: tasks.length }
 	}
 
 	createTask(title: string, description: string): Task {

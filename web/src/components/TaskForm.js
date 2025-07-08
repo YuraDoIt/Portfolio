@@ -18,9 +18,15 @@ const TaskForm = ({ onTaskCreated }) => {
         description 
       });
       
-      onTaskCreated(response.data);
+      // Clear form
       setTitle('');
       setDescription('');
+      
+      // Notify parent component about the new task
+      if (onTaskCreated) {
+        onTaskCreated(response.data);
+      }
+      
       console.log('Task created successfully:', response.data);
     } catch (error) {
       console.error('Error creating task:', error);
@@ -31,16 +37,10 @@ const TaskForm = ({ onTaskCreated }) => {
   };
 
   return (
-    <div style={{
-      border: '1px solid #ddd',
-      borderRadius: '8px',
-      padding: '20px',
-      marginBottom: '20px',
-      backgroundColor: '#f9f9f9'
-    }}>
-      <h2 style={{ margin: '0 0 20px 0', color: '#333' }}>Add New Task</h2>
+    <div className="task-form">
+      <h2>Add New Task</h2>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
+        <div className="form-group">
           <input
             type="text"
             placeholder="Task Title"
@@ -48,17 +48,10 @@ const TaskForm = ({ onTaskCreated }) => {
             onChange={(e) => setTitle(e.target.value)}
             required
             disabled={loading}
-            style={{
-              width: '100%',
-              padding: '12px',
-              fontSize: '16px',
-              border: '1px solid #ddd',
-              borderRadius: '4px',
-              boxSizing: 'border-box'
-            }}
+            className="form-input"
           />
         </div>
-        <div style={{ marginBottom: '15px' }}>
+        <div className="form-group">
           <textarea
             placeholder="Task Description"
             value={description}
@@ -66,34 +59,18 @@ const TaskForm = ({ onTaskCreated }) => {
             required
             disabled={loading}
             rows="4"
-            style={{
-              width: '100%',
-              padding: '12px',
-              fontSize: '16px',
-              border: '1px solid #ddd',
-              borderRadius: '4px',
-              boxSizing: 'border-box',
-              resize: 'vertical'
-            }}
+            className="form-textarea"
           ></textarea>
         </div>
         <button 
           type="submit" 
           disabled={loading}
-          style={{
-            backgroundColor: loading ? '#ccc' : '#007bff',
-            color: 'white',
-            border: 'none',
-            padding: '12px 24px',
-            borderRadius: '4px',
-            cursor: loading ? 'not-allowed' : 'pointer',
-            fontSize: '16px'
-          }}
+          className={`submit-btn ${loading ? 'loading' : ''}`}
         >
           {loading ? 'Creating...' : 'Add Task'}
         </button>
       </form>
-      {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };
