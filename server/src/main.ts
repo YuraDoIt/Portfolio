@@ -11,6 +11,13 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule)
 	const PORT = process.env.PORT
 
+	// Enable CORS for frontend communication
+	app.enableCors({
+		origin: "http://localhost:3002",
+		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+		credentials: true
+	})
+
 	const config = new DocumentBuilder()
 		.setTitle("API Documentation")
 		.setDescription("The API description")
@@ -31,9 +38,7 @@ async function bootstrap() {
 	SwaggerModule.setup("api", app, document)
 
 	await app.listen(PORT ?? 3001, () => {
-		console.log(
-			`Server started on port http://localhost:${process.env.PORT}/api`
-		)
+		console.log(`Server started on port http://localhost:${PORT ?? 3001}/api`)
 	})
 }
 bootstrap()
