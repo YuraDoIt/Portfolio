@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-task-manager",
+  "version": "1.0.0",
+  "description": "Task Manager with React frontend and NestJS backend",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd web && npm start",
+    "install-all": "npm install && cd server && npm install && cd ../web && npm install",
+    "build": "cd web && npm run build",
+    "test": "cd server && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": ["react", "nestjs", "task-manager", "portfolio"],
+  "author": "",
+  "license": "MIT"
+} 
