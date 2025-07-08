@@ -13,7 +13,6 @@ const TaskForm = ({ onTaskCreated }) => {
     setError('');
 
     try {
-        console.log("title", title)
       const response = await axios.post('http://localhost:3001/tasks', { 
         title, 
         description 
@@ -32,10 +31,17 @@ const TaskForm = ({ onTaskCreated }) => {
   };
 
   return (
-    <div>
-      <h2>Add New Task</h2>    
-        <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: 'auto' }}>
-        <input
+    <div style={{
+      border: '1px solid #ddd',
+      borderRadius: '8px',
+      padding: '20px',
+      marginBottom: '20px',
+      backgroundColor: '#f9f9f9'
+    }}>
+      <h2 style={{ margin: '0 0 20px 0', color: '#333' }}>Add New Task</h2>
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '15px' }}>
+          <input
             type="text"
             placeholder="Task Title"
             value={title}
@@ -43,51 +49,51 @@ const TaskForm = ({ onTaskCreated }) => {
             required
             disabled={loading}
             style={{
-            width: '100%',
-            padding: '10px',
-            fontSize: '16px',
-            marginBottom: '10px',
-            boxSizing: 'border-box',
-            borderRadius: '4px',
-            border: '1px solid #ccc',
+              width: '100%',
+              padding: '12px',
+              fontSize: '16px',
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              boxSizing: 'border-box'
             }}
-        />
-        <textarea
+          />
+        </div>
+        <div style={{ marginBottom: '15px' }}>
+          <textarea
             placeholder="Task Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
             disabled={loading}
+            rows="4"
             style={{
-            width: '100%',
-            padding: '10px',
-            fontSize: '16px',
-            marginBottom: '10px',
-            boxSizing: 'border-box',
-            borderRadius: '4px',
-            border: '1px solid #ccc',
-            minHeight: '80px',  // щоб textarea була достатньо високою
-            resize: 'vertical',  // дозволяє змінювати висоту, але не ширину
+              width: '100%',
+              padding: '12px',
+              fontSize: '16px',
+              border: '1px solid #ddd',
+              borderRadius: '4px',
+              boxSizing: 'border-box',
+              resize: 'vertical'
             }}
-        />
-        <button
-            type="submit"
-            disabled={loading}
-            style={{
-            width: '100%',
-            padding: '10px',
-            fontSize: '16px',
-            borderRadius: '4px',
-            border: 'none',
-            backgroundColor: '#007bff',
+          ></textarea>
+        </div>
+        <button 
+          type="submit" 
+          disabled={loading}
+          style={{
+            backgroundColor: loading ? '#ccc' : '#007bff',
             color: 'white',
+            border: 'none',
+            padding: '12px 24px',
+            borderRadius: '4px',
             cursor: loading ? 'not-allowed' : 'pointer',
-            }}
+            fontSize: '16px'
+          }}
         >
-            {loading ? 'Creating...' : 'Add Task'}
+          {loading ? 'Creating...' : 'Add Task'}
         </button>
-        </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      </form>
+      {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
     </div>
   );
 };
