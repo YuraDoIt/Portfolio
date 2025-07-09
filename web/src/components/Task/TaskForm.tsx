@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { TaskFormProps, Task } from "../../types";
+import { API_HOST } from "../../const/environment";
 
-const TaskForm = ({ onTaskCreated }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+const TaskForm: React.FC<TaskFormProps> = ({ onTaskCreated }) => {
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:3001/tasks", {
+      const response = await axios.post<Task>(`${API_HOST}/tasks`, {
         title,
         description,
       });
@@ -45,7 +47,7 @@ const TaskForm = ({ onTaskCreated }) => {
             type="text"
             placeholder="Task Title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
             required
             disabled={loading}
             className="form-input"
@@ -55,10 +57,10 @@ const TaskForm = ({ onTaskCreated }) => {
           <textarea
             placeholder="Task Description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
             required
             disabled={loading}
-            rows="4"
+            rows={4}
             className="form-textarea"
           ></textarea>
         </div>
@@ -75,4 +77,4 @@ const TaskForm = ({ onTaskCreated }) => {
   );
 };
 
-export default TaskForm;
+export default TaskForm; 

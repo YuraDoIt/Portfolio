@@ -3,30 +3,31 @@ import TaskList from "./components/Task/TaskList";
 import TaskForm from "./components/Task/TaskForm";
 import Portfolio from "./components/Portfolio/Portfolio";
 import "./App.css";
+import { Task } from "./types";
 
-function App() {
-  const [currentPage, setCurrentPage] = useState("portfolio"); // Default to portfolio
-  const [tasks, setTasks] = useState([]);
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [totalTasks, setTotalTasks] = useState(0);
+function App(): React.JSX.Element {
+  const [currentPage, setCurrentPage] = useState<string>("portfolio"); // Default to portfolio
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
+  const [totalTasks, setTotalTasks] = useState<number>(0);
 
-  const handleTaskCreated = (newTask) => {
+  const handleTaskCreated = (newTask: Task): void => {
     setTasks([...tasks, newTask]);
     setRefreshTrigger((prev) => prev + 1);
   };
 
-  const handleTasksLoaded = (loadedTasks) => {
+  const handleTasksLoaded = (loadedTasks: Task[]): void => {
     setTasks(loadedTasks);
     setTotalTasks(loadedTasks.length);
   };
 
-  const handleTaskDeleted = (deletedTaskId) => {
+  const handleTaskDeleted = (deletedTaskId: number): void => {
     const updatedTasks = tasks.filter((task) => task.id !== deletedTaskId);
     setTasks(updatedTasks);
     setTotalTasks(updatedTasks.length);
   };
 
-  const renderPage = () => {
+  const renderPage = (): React.JSX.Element => {
     switch (currentPage) {
       case "tasks":
         return (
@@ -101,4 +102,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./Portfolio.css";
+import { Skill, Project, Experience, Education } from "../../types";
 
 const contactEmail = process.env.REACT_APP_CONTACT_EMAIL;
 
-const Portfolio = () => {
-  const [activeTab, setActiveTab] = useState("about");
+const Portfolio: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<string>("about");
 
-  const skills = [
+  const skills: Skill[] = [
     { name: "React", level: 90, category: "Frontend" },
     { name: "JavaScript", level: 85, category: "Frontend" },
     { name: "TypeScript", level: 80, category: "Frontend" },
@@ -19,7 +20,7 @@ const Portfolio = () => {
     { name: "Git", level: 85, category: "DevOps" },
   ];
 
-  const projects = [
+  const projects: Project[] = [
     {
       id: 1,
       title: "Task Manager App",
@@ -55,7 +56,7 @@ const Portfolio = () => {
     },
   ];
 
-  const experience = [
+  const experience: Experience[] = [
     {
       company: "Tech Solutions Inc.",
       position: "Full Stack Developer",
@@ -82,7 +83,7 @@ const Portfolio = () => {
     },
   ];
 
-  const education = [
+  const education: Education[] = [
     {
       degree: "Bachelor of Computer Science",
       school: "University of Technology",
@@ -319,4 +320,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default Portfolio; 

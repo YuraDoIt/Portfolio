@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_HOST } from "../../const/environment";
+import { TaskListProps, Task, TasksResponse } from "../../types";
 
-const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+const TaskList: React.FC<TaskListProps> = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const fetchTasks = async () => {
+  const fetchTasks = async (): Promise<void> => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_HOST}/tasks`);
+      const response = await axios.get<TasksResponse>(`${API_HOST}/tasks`);
 
       // Handle the backend response format: { tasks: Task[], total: number }
-      let tasksData = [];
+      let tasksData: Task[] = [];
       if (response.data && response.data.tasks) {
         // Backend returns { tasks: Task[], total: number }
         tasksData = Array.isArray(response.data.tasks)
@@ -22,7 +23,7 @@ const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
           : [];
       } else if (Array.isArray(response.data)) {
         // Fallback: if response.data is directly an array
-        tasksData = response.data;
+        tasksData = response.data as Task[];
       }
 
       setTasks(tasksData);
@@ -50,7 +51,7 @@ const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
     fetchTasks();
   }, [refreshTrigger]);
 
-  const deleteTask = async (id) => {
+  const deleteTask = async (id: number): Promise<void> => {
     try {
       await axios.delete(`${API_HOST}/tasks/${id}`);
       const updatedTasks = tasks.filter((task) => task.id !== id);
@@ -67,10 +68,10 @@ const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
   };
 
   // Ensure tasks is always an array before filtering
-  const safeTasks = Array.isArray(tasks) ? tasks : [];
+  const safeTasks: Task[] = Array.isArray(tasks) ? tasks : [];
 
   // Filter tasks based on search term
-  const filteredTasks = safeTasks.filter(
+  const filteredTasks: Task[] = safeTasks.filter(
     (task) =>
       task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       task.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -91,7 +92,7 @@ const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
           type="text"
           placeholder="Search tasks by title or description..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
           className="search-input"
         />
       </div>
@@ -128,4 +129,4 @@ const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
   );
 };
 
-export default TaskList;
+export default TaskList; 
