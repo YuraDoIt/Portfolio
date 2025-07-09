@@ -1,5 +1,5 @@
 import React from "react";
-import { Project } from "../../../types";
+import { Project } from "../../types";
 
 // SVG placeholder component
 const ProjectPlaceholder: React.FC<{ title: string }> = ({ title }) => (

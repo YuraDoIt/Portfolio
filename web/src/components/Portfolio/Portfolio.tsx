@@ -8,7 +8,7 @@ import {
   ProjectsSection,
   ExperienceSection,
   ContactSection,
-} from "./components";
+} from ".";
 import { skills, projects, experience, education } from "./data/portfolioData";
 
 const Portfolio: React.FC = () => {
