@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const TaskForm = ({ onTaskCreated }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const response = await axios.post('http://localhost:3001/tasks', { 
-        title, 
-        description 
+      const response = await axios.post("http://localhost:3001/tasks", {
+        title,
+        description,
       });
-      
+
       // Clear form
-      setTitle('');
-      setDescription('');
-      
+      setTitle("");
+      setDescription("");
+
       // Notify parent component about the new task
       if (onTaskCreated) {
         onTaskCreated(response.data);
       }
-      
-      console.log('Task created successfully:', response.data);
+
+      console.log("Task created successfully:", response.data);
     } catch (error) {
-      console.error('Error creating task:', error);
-      setError('Failed to create task. Please try again.');
+      console.error("Error creating task:", error);
+      setError("Failed to create task. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -62,12 +62,12 @@ const TaskForm = ({ onTaskCreated }) => {
             className="form-textarea"
           ></textarea>
         </div>
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={loading}
-          className={`submit-btn ${loading ? 'loading' : ''}`}
+          className={`submit-btn ${loading ? "loading" : ""}`}
         >
-          {loading ? 'Creating...' : 'Add Task'}
+          {loading ? "Creating..." : "Add Task"}
         </button>
       </form>
       {error && <p className="error-message">{error}</p>}

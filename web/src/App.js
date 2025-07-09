@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import TaskList from './components/TaskList';
-import TaskForm from './components/TaskForm';
-import Portfolio from './components/Portfolio/Portfolio';
-import './App.css';
+import React, { useState } from "react";
+import TaskList from "./components/Task/TaskList";
+import TaskForm from "./components/Task/TaskForm";
+import Portfolio from "./components/Portfolio/Portfolio";
+import "./App.css";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('portfolio'); // Default to portfolio
+  const [currentPage, setCurrentPage] = useState("portfolio"); // Default to portfolio
   const [tasks, setTasks] = useState([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [totalTasks, setTotalTasks] = useState(0);
 
   const handleTaskCreated = (newTask) => {
     setTasks([...tasks, newTask]);
-    setRefreshTrigger(prev => prev + 1);
+    setRefreshTrigger((prev) => prev + 1);
   };
 
   const handleTasksLoaded = (loadedTasks) => {
@@ -21,14 +21,14 @@ function App() {
   };
 
   const handleTaskDeleted = (deletedTaskId) => {
-    const updatedTasks = tasks.filter(task => task.id !== deletedTaskId);
+    const updatedTasks = tasks.filter((task) => task.id !== deletedTaskId);
     setTasks(updatedTasks);
     setTotalTasks(updatedTasks.length);
   };
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'tasks':
+      case "tasks":
         return (
           <div className="task-manager-page">
             <div className="container">
@@ -37,7 +37,7 @@ function App() {
                   <TaskForm onTaskCreated={handleTaskCreated} />
                 </section>
                 <section className="list-section">
-                  <TaskList 
+                  <TaskList
                     refreshTrigger={refreshTrigger}
                     onTasksLoaded={handleTasksLoaded}
                     onTaskDeleted={handleTaskDeleted}
@@ -47,7 +47,7 @@ function App() {
             </div>
           </div>
         );
-      case 'portfolio':
+      case "portfolio":
         return <Portfolio />;
       default:
         return <Portfolio />;
@@ -62,15 +62,17 @@ function App() {
           <div className="nav-container">
             <h1 className="app-title">Portfolio & Task Manager</h1>
             <nav className="main-nav">
-              <button 
-                className={`nav-btn ${currentPage === 'portfolio' ? 'active' : ''}`}
-                onClick={() => setCurrentPage('portfolio')}
+              <button
+                className={`nav-btn ${
+                  currentPage === "portfolio" ? "active" : ""
+                }`}
+                onClick={() => setCurrentPage("portfolio")}
               >
                 Portfolio
               </button>
-              <button 
-                className={`nav-btn ${currentPage === 'tasks' ? 'active' : ''}`}
-                onClick={() => setCurrentPage('tasks')}
+              <button
+                className={`nav-btn ${currentPage === "tasks" ? "active" : ""}`}
+                onClick={() => setCurrentPage("tasks")}
               >
                 Task Manager
               </button>
@@ -80,15 +82,15 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="app-main">
-        {renderPage()}
-      </main>
+      <main className="app-main">{renderPage()}</main>
 
       {/* Footer - Only show for Task Manager */}
-      {currentPage === 'tasks' && (
+      {currentPage === "tasks" && (
         <footer className="app-footer">
           <div className="footer-content">
-            <p>&copy; 2025 Portfolio & Task Manager. Built with React & NestJS.</p>
+            <p>
+              &copy; 2025 Portfolio & Task Manager. Built with React & NestJS.
+            </p>
             <div className="footer-links">
               <span>Total Tasks: {totalTasks}</span>
             </div>
