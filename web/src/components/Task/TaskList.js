@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_HOST } from "../../const/environment";
 
 const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
   const [tasks, setTasks] = useState([]);
@@ -10,7 +11,7 @@ const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
   const fetchTasks = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3001/tasks");
+      const response = await axios.get(`${API_HOST}/tasks`);
 
       // Handle the backend response format: { tasks: Task[], total: number }
       let tasksData = [];
@@ -51,7 +52,7 @@ const TaskList = ({ refreshTrigger, onTasksLoaded, onTaskDeleted }) => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/tasks/${id}`);
+      await axios.delete(`${API_HOST}/tasks/${id}`);
       const updatedTasks = tasks.filter((task) => task.id !== id);
       setTasks(updatedTasks);
 

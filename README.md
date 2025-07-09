@@ -11,3 +11,10 @@ Front - end
 - Run : npm install
   add .env file
 - npm run
+
+Docker run: 
+1) docker-compose down - stop service
+2) docker-compose up --build - rebuild and start 
+docker-compose ps - view status
+docker-compose logs -f - view logs
+docker-compose restart - restart service

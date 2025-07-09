@@ -1,0 +1,41 @@
+services:
+  server:
+    build: ./server
+    container_name: portfolio-server
+    ports:
+      - "3002:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - portfolio-network
+
+  web:
+    build: ./web
+    container_name: portfolio-web
+    ports:
+      - "3003:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3002
+      - HOST=0.0.0.0
+      - PORT=3000
+      - WDS_SOCKET_HOST=localhost
+      - WDS_SOCKET_PORT=3003
+    env_file:
+      - ./web/.env
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    networks:
+      - portfolio-network
+    depends_on:
+      - server
+
+networks:
+  portfolio-network:
+    driver: bridge
