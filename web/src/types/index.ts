@@ -29,7 +29,7 @@ export interface Project {
   title: string;
   description: string;
   technologies: string[];
-  image: string;
+  image: string; // Changed from URL to string type for placeholder components
   github: string;
   live: string;
 }

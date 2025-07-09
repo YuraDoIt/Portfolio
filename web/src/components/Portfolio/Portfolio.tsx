@@ -4,6 +4,24 @@ import { Skill, Project, Experience, Education } from "../../types";
 
 const contactEmail = process.env.REACT_APP_CONTACT_EMAIL;
 
+// SVG placeholder components
+const ProfilePlaceholder: React.FC = () => (
+  <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="300" height="300" fill="#667eea"/>
+    <circle cx="150" cy="120" r="40" fill="white" opacity="0.8"/>
+    <path d="M150 180 C 100 180 60 220 60 270 L 240 270 C 240 220 200 180 150 180 Z" fill="white" opacity="0.8"/>
+    <text x="150" y="280" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">Profile</text>
+  </svg>
+);
+
+const ProjectPlaceholder: React.FC<{ title: string }> = ({ title }) => (
+  <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="300" height="200" fill="#667eea"/>
+    <rect x="20" y="20" width="260" height="160" fill="white" opacity="0.1"/>
+    <text x="150" y="100" textAnchor="middle" fill="white" fontSize="18" fontWeight="bold">{title}</text>
+  </svg>
+);
+
 const Portfolio: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("about");
 
@@ -27,8 +45,7 @@ const Portfolio: React.FC = () => {
       description:
         "Full-stack task management application built with React and NestJS. Features include task creation, search, and real-time updates.",
       technologies: ["React", "NestJS", "TypeScript", "Axios"],
-      image:
-        "https://via.placeholder.com/300x200/667eea/ffffff?text=Task+Manager",
+      image: "task-manager",
       github: "#",
       live: "#",
     },
@@ -38,8 +55,7 @@ const Portfolio: React.FC = () => {
       description:
         "Modern e-commerce solution with payment integration, user authentication, and admin dashboard.",
       technologies: ["React", "Node.js", "Stripe", "MongoDB"],
-      image:
-        "https://via.placeholder.com/300x200/764ba2/ffffff?text=E-commerce",
+      image: "e-commerce",
       github: "#",
       live: "#",
     },
@@ -49,8 +65,7 @@ const Portfolio: React.FC = () => {
       description:
         "Real-time weather application with location-based forecasts and interactive maps.",
       technologies: ["React", "OpenWeather API", "Chart.js", "CSS3"],
-      image:
-        "https://via.placeholder.com/300x200/667eea/ffffff?text=Weather+App",
+      image: "weather-app",
       github: "#",
       live: "#",
     },
@@ -93,6 +108,19 @@ const Portfolio: React.FC = () => {
     },
   ];
 
+  const renderProjectImage = (imageType: string, title: string) => {
+    switch (imageType) {
+      case "task-manager":
+        return <ProjectPlaceholder title="Task Manager" />;
+      case "e-commerce":
+        return <ProjectPlaceholder title="E-commerce" />;
+      case "weather-app":
+        return <ProjectPlaceholder title="Weather App" />;
+      default:
+        return <ProjectPlaceholder title={title} />;
+    }
+  };
+
   return (
     <div className="portfolio">
       {/* Hero Section */}
@@ -122,10 +150,7 @@ const Portfolio: React.FC = () => {
           </div>
           <div className="hero-image">
             <div className="profile-image">
-              <img
-                src="https://via.placeholder.com/300x300/667eea/ffffff?text=Profile"
-                alt="Profile"
-              />
+              <ProfilePlaceholder />
             </div>
           </div>
         </div>
@@ -230,7 +255,7 @@ const Portfolio: React.FC = () => {
               {projects.map((project) => (
                 <div key={project.id} className="project-card">
                   <div className="project-image">
-                    <img src={project.image} alt={project.title} />
+                    {renderProjectImage(project.image, project.title)}
                   </div>
                   <div className="project-content">
                     <h3>{project.title}</h3>
