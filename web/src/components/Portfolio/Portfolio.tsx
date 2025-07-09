@@ -1,346 +1,44 @@
 import React, { useState } from "react";
 import "./Portfolio.css";
-import { Skill, Project, Experience, Education } from "../../types";
-
-const contactEmail = process.env.REACT_APP_CONTACT_EMAIL;
-
-// SVG placeholder components
-const ProfilePlaceholder: React.FC = () => (
-  <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="300" height="300" fill="#667eea"/>
-    <circle cx="150" cy="120" r="40" fill="white" opacity="0.8"/>
-    <path d="M150 180 C 100 180 60 220 60 270 L 240 270 C 240 220 200 180 150 180 Z" fill="white" opacity="0.8"/>
-    <text x="150" y="280" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">Profile</text>
-  </svg>
-);
-
-const ProjectPlaceholder: React.FC<{ title: string }> = ({ title }) => (
-  <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="300" height="200" fill="#667eea"/>
-    <rect x="20" y="20" width="260" height="160" fill="white" opacity="0.1"/>
-    <text x="150" y="100" textAnchor="middle" fill="white" fontSize="18" fontWeight="bold">{title}</text>
-  </svg>
-);
+import {
+  HeroSection,
+  NavigationTabs,
+  AboutSection,
+  SkillsSection,
+  ProjectsSection,
+  ExperienceSection,
+  ContactSection,
+} from "./components";
+import { skills, projects, experience, education } from "./data/portfolioData";
 
 const Portfolio: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("about");
 
-  const skills: Skill[] = [
-    { name: "React", level: 90, category: "Frontend" },
-    { name: "JavaScript", level: 85, category: "Frontend" },
-    { name: "TypeScript", level: 80, category: "Frontend" },
-    { name: "Node.js", level: 85, category: "Backend" },
-    { name: "NestJS", level: 80, category: "Backend" },
-    { name: "Python", level: 75, category: "Backend" },
-    { name: "PostgreSQL", level: 70, category: "Database" },
-    { name: "MongoDB", level: 75, category: "Database" },
-    { name: "Docker", level: 70, category: "DevOps" },
-    { name: "Git", level: 85, category: "DevOps" },
-  ];
-
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Task Manager App",
-      description:
-        "Full-stack task management application built with React and NestJS. Features include task creation, search, and real-time updates.",
-      technologies: ["React", "NestJS", "TypeScript", "Axios"],
-      image: "task-manager",
-      github: "#",
-      live: "#",
-    },
-    {
-      id: 2,
-      title: "E-commerce Platform",
-      description:
-        "Modern e-commerce solution with payment integration, user authentication, and admin dashboard.",
-      technologies: ["React", "Node.js", "Stripe", "MongoDB"],
-      image: "e-commerce",
-      github: "#",
-      live: "#",
-    },
-    {
-      id: 3,
-      title: "Weather Dashboard",
-      description:
-        "Real-time weather application with location-based forecasts and interactive maps.",
-      technologies: ["React", "OpenWeather API", "Chart.js", "CSS3"],
-      image: "weather-app",
-      github: "#",
-      live: "#",
-    },
-  ];
-
-  const experience: Experience[] = [
-    {
-      company: "Tech Solutions Inc.",
-      position: "Full Stack Developer",
-      period: "2023 - Present",
-      description:
-        "Developed and maintained web applications using React, Node.js, and PostgreSQL. Collaborated with cross-functional teams to deliver high-quality software solutions.",
-      achievements: [
-        "Led development of 3 major features",
-        "Improved application performance by 40%",
-        "Mentored 2 junior developers",
-      ],
-    },
-    {
-      company: "StartupXYZ",
-      position: "Frontend Developer",
-      period: "2022 - 2023",
-      description:
-        "Built responsive user interfaces and implemented modern web technologies. Worked closely with designers to create intuitive user experiences.",
-      achievements: [
-        "Built 5+ responsive web applications",
-        "Implemented CI/CD pipelines",
-        "Reduced bundle size by 30%",
-      ],
-    },
-  ];
-
-  const education: Education[] = [
-    {
-      degree: "Bachelor of Computer Science",
-      school: "University of Technology",
-      period: "2018 - 2022",
-      description:
-        "Focused on software engineering, algorithms, and web development.",
-    },
-  ];
-
-  const renderProjectImage = (imageType: string, title: string) => {
-    switch (imageType) {
-      case "task-manager":
-        return <ProjectPlaceholder title="Task Manager" />;
-      case "e-commerce":
-        return <ProjectPlaceholder title="E-commerce" />;
-      case "weather-app":
-        return <ProjectPlaceholder title="Weather App" />;
+  const renderContent = () => {
+    switch (activeTab) {
+      case "about":
+        return <AboutSection education={education} />;
+      case "skills":
+        return <SkillsSection skills={skills} />;
+      case "projects":
+        return <ProjectsSection projects={projects} />;
+      case "experience":
+        return <ExperienceSection experience={experience} />;
       default:
-        return <ProjectPlaceholder title={title} />;
+        return <AboutSection education={education} />;
     }
   };
 
   return (
     <div className="portfolio">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <div className="hero-text">
-            <h1 className="hero-title">
-              Hi, I'm <span className="highlight">Yurii Tsudzenko</span>
-            </h1>
-            <h2 className="hero-subtitle">Full Stack Developer</h2>
-            <p className="hero-description">
-              I create modern, scalable web applications with cutting-edge
-              technologies. Passionate about clean code, user experience, and
-              continuous learning.
-            </p>
-            <div className="hero-buttons">
-              <a
-                href="/TsudzenkoYurii_CV.pdf"
-                className="btn-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View CV
-              </a>
-              <button className="btn-secondary">Contact Me</button>
-            </div>
-          </div>
-          <div className="hero-image">
-            <div className="profile-image">
-              <ProfilePlaceholder />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Navigation Tabs */}
-      <section className="nav-section">
-        <div className="nav-tabs">
-          <button
-            className={`nav-tab ${activeTab === "about" ? "active" : ""}`}
-            onClick={() => setActiveTab("about")}
-          >
-            About
-          </button>
-          <button
-            className={`nav-tab ${activeTab === "skills" ? "active" : ""}`}
-            onClick={() => setActiveTab("skills")}
-          >
-            Skills
-          </button>
-          <button
-            className={`nav-tab ${activeTab === "projects" ? "active" : ""}`}
-            onClick={() => setActiveTab("projects")}
-          >
-            Projects
-          </button>
-          <button
-            className={`nav-tab ${activeTab === "experience" ? "active" : ""}`}
-            onClick={() => setActiveTab("experience")}
-          >
-            Experience
-          </button>
-        </div>
-      </section>
-
-      {/* Content Sections */}
+      <HeroSection />
+      <NavigationTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      
       <section className="content-section">
-        {activeTab === "about" && (
-          <div className="about-content">
-            <h2>About Me</h2>
-            <p>
-              I'm a passionate Full Stack Developer with 3+ years of experience
-              building modern web applications. I specialize in React, Node.js,
-              and TypeScript, and I love creating intuitive user experiences
-              that solve real-world problems.
-            </p>
-            <p>
-              When I'm not coding, you can find me exploring new technologies,
-              contributing to open-source projects, or sharing knowledge with
-              the developer community.
-            </p>
-
-            <div className="education-section">
-              <h3>Education</h3>
-              {education.map((edu, index) => (
-                <div key={index} className="education-item">
-                  <h4>{edu.degree}</h4>
-                  <p className="school">{edu.school}</p>
-                  <p className="period">{edu.period}</p>
-                  <p>{edu.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === "skills" && (
-          <div className="skills-content">
-            <h2>Skills & Technologies</h2>
-            <div className="skills-grid">
-              {["Frontend", "Backend", "Database", "DevOps"].map((category) => (
-                <div key={category} className="skill-category">
-                  <h3>{category}</h3>
-                  <div className="skill-items">
-                    {skills
-                      .filter((skill) => skill.category === category)
-                      .map((skill) => (
-                        <div key={skill.name} className="skill-item">
-                          <div className="skill-header">
-                            <span className="skill-name">{skill.name}</span>
-                            <span className="skill-level">{skill.level}%</span>
-                          </div>
-                          <div className="skill-bar">
-                            <div
-                              className="skill-progress"
-                              style={{ width: `${skill.level}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === "projects" && (
-          <div className="projects-content">
-            <h2>Featured Projects</h2>
-            <div className="projects-grid">
-              {projects.map((project) => (
-                <div key={project.id} className="project-card">
-                  <div className="project-image">
-                    {renderProjectImage(project.image, project.title)}
-                  </div>
-                  <div className="project-content">
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                    <div className="project-technologies">
-                      {project.technologies.map((tech) => (
-                        <span key={tech} className="tech-tag">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="project-links">
-                      <a href={project.github} className="btn-link">
-                        GitHub
-                      </a>
-                      <a href={project.live} className="btn-link">
-                        Live Demo
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === "experience" && (
-          <div className="experience-content">
-            <h2>Work Experience</h2>
-            <div className="timeline">
-              {experience.map((exp, index) => (
-                <div key={index} className="timeline-item">
-                  <div className="timeline-marker"></div>
-                  <div className="timeline-content">
-                    <h3>{exp.position}</h3>
-                    <h4>{exp.company}</h4>
-                    <p className="period">{exp.period}</p>
-                    <p>{exp.description}</p>
-                    <ul className="achievements">
-                      {exp.achievements.map((achievement, i) => (
-                        <li key={i}>{achievement}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {renderContent()}
       </section>
 
-      {/* Contact Section */}
-      <section className="contact-section">
-        <div className="contact-content">
-          <h2>Get In Touch</h2>
-          <p>
-            I'm always interested in new opportunities and exciting projects.
-          </p>
-          <div className="contact-info">
-            <div className="contact-item">
-              <span className="contact-icon">📧</span>
-              <span>{contactEmail}</span>
-            </div>
-            <div className="contact-item">
-              <span className="contact-icon">📱</span>
-              <span>+1 (555) 123-4567</span>
-            </div>
-            <div className="contact-item">
-              <span className="contact-icon">📍</span>
-              <span>San Francisco, CA</span>
-            </div>
-          </div>
-          <div className="social-links">
-            <a href="#" className="social-link">
-              GitHub
-            </a>
-            <a href="#" className="social-link">
-              LinkedIn
-            </a>
-            <a href="#" className="social-link">
-              Twitter
-            </a>
-          </div>
-        </div>
-      </section>
+      <ContactSection />
     </div>
   );
 };
