@@ -90,7 +90,7 @@ function App(): React.JSX.Element {
         <footer className="app-footer">
           <div className="footer-content">
             <p>
-              &copy; 2025123 Portfolio & Task Manager. Built with React & NestJS.
+              &copy; 2025 Portfolio & Task Manager. Built with React & NestJS.
             </p>
             <div className="footer-links">
               <span>Total Tasks: {totalTasks}</span>
