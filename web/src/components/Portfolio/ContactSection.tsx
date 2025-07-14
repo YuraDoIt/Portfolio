@@ -17,23 +17,24 @@ const ContactSection: React.FC = () => {
           </div>
           <div className="contact-item">
             <span className="contact-icon">📱</span>
-            <span>+1 (555) 123-4567</span>
+            <span>+380 999 294 614</span>
           </div>
           <div className="contact-item">
             <span className="contact-icon">📍</span>
-            <span>San Francisco, CA</span>
+            <span>Ukraine</span>
           </div>
         </div>
         <div className="social-links">
-          <a href="#" className="social-link">
+          <a href="https://github.com/YuraDoIt" className="social-link">
             GitHub
           </a>
-          <a href="#" className="social-link">
+          <a href="https://www.linkedin.com/in/yura-tsudzenko-417561173/" className="social-link">
             LinkedIn
           </a>
-          <a href="#" className="social-link">
+          {/* Can add another media */}
+          {/* <a href="#" className="social-link">
             Twitter
-          </a>
+          </a> */}
         </div>
       </div>
     </section>

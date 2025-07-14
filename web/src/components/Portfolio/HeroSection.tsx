@@ -33,7 +33,7 @@ const HeroSection: React.FC = () => {
             >
               View CV
             </a>
-            <button className="btn-secondary">Contact Me</button>
+            {/* <button className="btn-secondary">Contact Me</button> */}
           </div>
         </div>
         <div className="hero-image">

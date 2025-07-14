@@ -61,7 +61,7 @@ function App(): React.JSX.Element {
       <header className="app-header">
         <div className="header-content">
           <div className="nav-container">
-            <h1 className="app-title">Portfolio & Task Manager</h1>
+            <h1 className="app-title">Portfolio Yurii</h1>
             <nav className="main-nav">
               <button
                 className={`nav-btn ${
@@ -86,18 +86,18 @@ function App(): React.JSX.Element {
       <main className="app-main">{renderPage()}</main>
 
       {/* Footer - Only show for Task Manager */}
-      {currentPage === "tasks" && (
+ (
         <footer className="app-footer">
           <div className="footer-content">
             <p>
-              &copy; 2025 Portfolio & Task Manager. Built with React & NestJS.
+              &copy; 2025 Portfolio . Built with React & NestJS.
             </p>
             <div className="footer-links">
               <span>Total Tasks: {totalTasks}</span>
             </div>
           </div>
         </footer>
-      )}
+      )
     </div>
   );
 }
