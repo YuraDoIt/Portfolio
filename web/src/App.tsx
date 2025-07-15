@@ -86,7 +86,7 @@ function App(): React.JSX.Element {
       <main className="app-main">{renderPage()}</main>
 
       {/* Footer - Only show for Task Manager */}
- (
+      {currentPage === "tasks" &&  (
         <footer className="app-footer">
           <div className="footer-content">
             <p>
@@ -97,7 +97,7 @@ function App(): React.JSX.Element {
             </div>
           </div>
         </footer>
-      )
+      )}
     </div>
   );
 }
