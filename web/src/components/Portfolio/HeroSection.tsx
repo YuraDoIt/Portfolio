@@ -26,14 +26,14 @@ const HeroSection: React.FC = () => {
           </p>
           <div className="hero-buttons">
             <a
-              href="/TsudzenkoYurii_CV.pdf"
+              href="/Yurii_Tsudzenko_CV.pdf"
               className="btn-primary"
               target="_blank"
               rel="noopener noreferrer"
             >
               View CV
             </a>
-            {/* <button className="btn-secondary">Contact Me</button> */}
+            <button className="btn-secondary">Contact Me</button>
           </div>
         </div>
         <div className="hero-image">
